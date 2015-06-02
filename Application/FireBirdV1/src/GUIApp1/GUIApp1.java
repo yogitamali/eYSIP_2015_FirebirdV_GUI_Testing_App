@@ -7,6 +7,9 @@ package GUIApp1;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Enumeration;
+import gnu.io.*;
+import java.util.ArrayList;
 /**
  *
  * @author Amit Bhargava
@@ -32,7 +35,7 @@ public class GUIApp1 extends javax.swing.JFrame {
         jPanelFrame = new javax.swing.JPanel();
         jPanelCOMPort = new javax.swing.JPanel();
         jLabelCOMPort = new javax.swing.JLabel();
-        COMports = new javax.swing.JComboBox();
+        jComboBoxCOMPorts = new javax.swing.JComboBox();
         jButtonCOMConnect = new javax.swing.JButton();
         jButtonCOMExit = new javax.swing.JButton();
         jLabelHeading = new javax.swing.JLabel();
@@ -46,8 +49,8 @@ public class GUIApp1 extends javax.swing.JFrame {
         jButtonRightMotion = new javax.swing.JButton();
         jButtonLeftMotion = new javax.swing.JButton();
         jButtonForwardMotion = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 700));
@@ -58,11 +61,21 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabelCOMPort.setForeground(new java.awt.Color(0, 0, 102));
         jLabelCOMPort.setText("   COM PORT");
 
-        COMports.setEditable(true);
+        jComboBoxCOMPorts.setEditable(true);
 
         jButtonCOMConnect.setText("Connect");
+        jButtonCOMConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCOMConnectActionPerformed(evt);
+            }
+        });
 
         jButtonCOMExit.setText("Exit");
+        jButtonCOMExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCOMExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCOMPortLayout = new javax.swing.GroupLayout(jPanelCOMPort);
         jPanelCOMPort.setLayout(jPanelCOMPortLayout);
@@ -73,7 +86,7 @@ public class GUIApp1 extends javax.swing.JFrame {
                     .addComponent(jLabelCOMPort, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelCOMPortLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(COMports, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxCOMPorts, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(14, 14, 14)
                 .addGroup(jPanelCOMPortLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCOMExit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -88,7 +101,7 @@ public class GUIApp1 extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(jLabelCOMPort)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(COMports, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxCOMPorts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCOMPortLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -219,27 +232,28 @@ public class GUIApp1 extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(153, 204, 255));
-        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel6.setText("   WHITE LINE SENSORS READINGS");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel1.setText("WHITE LINE SENSORS");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelFrameLayout = new javax.swing.GroupLayout(jPanelFrame);
@@ -253,12 +267,13 @@ public class GUIApp1 extends javax.swing.JFrame {
             .addGroup(jPanelFrameLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelFrameLayout.createSequentialGroup()
-                        .addComponent(jPanelCOMPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelMotionControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanelFrameLayout.createSequentialGroup()
+                            .addComponent(jPanelCOMPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jPanelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelMotionControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelFrameLayout.setVerticalGroup(
@@ -271,9 +286,9 @@ public class GUIApp1 extends javax.swing.JFrame {
                     .addComponent(jPanelBuzzer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelMotionControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,7 +299,7 @@ public class GUIApp1 extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanelFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -313,6 +328,16 @@ public class GUIApp1 extends javax.swing.JFrame {
     private void jButtonStopMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopMotionActionPerformed
          JOptionPane.showMessageDialog(jPanelFrame,"Bot stops");
     }//GEN-LAST:event_jButtonStopMotionActionPerformed
+
+    private void jButtonCOMConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCOMConnectActionPerformed
+        // TODO add your handling code here:
+        listSerialPorts();
+    }//GEN-LAST:event_jButtonCOMConnectActionPerformed
+
+    private void jButtonCOMExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCOMExitActionPerformed
+        // TODO add your handling code here:
+        removeSerialPorts();
+    }//GEN-LAST:event_jButtonCOMExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,23 +373,43 @@ public class GUIApp1 extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void /*static String[]*/ listSerialPorts() {
+ 
+    Enumeration ports = CommPortIdentifier.getPortIdentifiers();
+    ArrayList portList = new ArrayList();
+    String portArray[] = null;
+    while (ports.hasMoreElements()) {
+        CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
+        if (port.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+            portList.add(port.getName());
+        }
+    }
+    portArray = (String[]) portList.toArray(new String[0]);
+    //return portArray;
+    jComboBoxCOMPorts.setModel(new javax.swing.DefaultComboBoxModel(portArray));
+}
+    
+    public void removeSerialPorts(){
+        jComboBoxCOMPorts.removeAllItems();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox COMports;
     private javax.swing.JButton jButtonBackwardMotion;
     private javax.swing.JButton jButtonBuzzer;
-    private javax.swing.JButton jButtonCOMConnect;
-    private javax.swing.JButton jButtonCOMExit;
+    public javax.swing.JButton jButtonCOMConnect;
+    public javax.swing.JButton jButtonCOMExit;
     private javax.swing.JButton jButtonForwardMotion;
     private javax.swing.JButton jButtonLeftMotion;
     private javax.swing.JButton jButtonRightMotion;
     private javax.swing.JButton jButtonStopMotion;
-    private javax.swing.JLabel jLabel6;
+    public javax.swing.JComboBox jComboBoxCOMPorts;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBuzzer;
     private javax.swing.JLabel jLabelCOMPort;
     private javax.swing.JLabel jLabelHeading;
     private javax.swing.JLabel jLabelMotionControl;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBuzzer;
     private javax.swing.JPanel jPanelCOMPort;
     private javax.swing.JPanel jPanelFrame;
