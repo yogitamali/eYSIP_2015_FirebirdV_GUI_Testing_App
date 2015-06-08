@@ -14,23 +14,14 @@ import java.util.logging.Logger;
  * @author Amit Bhargava
  */
 public class SerialCommunication {
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        System.out.println("Hello");
+    CommPortIdentifier portId;
+       CommPort port;
+       SerialPort serialport;
+       OutputStream outputstream;
+       public static InputStream inputstream;
        
-        CommPortIdentifier portId;
-        CommPort port;
-        SerialPort serialport;
-        OutputStream outputstream;
-        InputStream inputstream;
-        //byte[] readbuffer = new byte[500];
-        //byte b[] = {100};
-        try {
+       public SerialCommunication(){
+           try {
             portId = CommPortIdentifier.getPortIdentifier("COM4");
             System.out.println(portId.getName());
             try {
@@ -54,7 +45,15 @@ public class SerialCommunication {
                         String serialmessage = "abc";
                         outputstream.write(serialmessage.getBytes());
                         System.out.println("written on serialport");
-                        serialport.close();
+                        try {
+                            serialport.addEventListener(new SerialEventHandler());
+                        } catch (TooManyListenersException ex) {
+                            Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        serialport.notifyOnDataAvailable(true);
+                        
+                        //System.out.println(inputstream);
+                        //serialport.close();
                         
                     } catch (IOException ex) {
                         //Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,10 +80,24 @@ public class SerialCommunication {
         
         //System.out.println(portId);
         
-    }
+       }
    
+          
     
-}   
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+       
+        
+        System.out.println("Hello");
+        SerialCommunication serialcomm = new SerialCommunication();
+        
+       //byte[] readbuffer = new byte[500];
+        //byte b[] = {100};
+     }
+}
     
     
     
