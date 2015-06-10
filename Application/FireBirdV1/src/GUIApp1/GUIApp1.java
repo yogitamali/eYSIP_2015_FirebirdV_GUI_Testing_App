@@ -7,14 +7,22 @@ package GUIApp1;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.util.Enumeration;
+import java.io.*;
+import java.util.*;
 import gnu.io.*;
-import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Amit Bhargava
  */
 public class GUIApp1 extends javax.swing.JFrame {
+    CommPortIdentifier portId;
+       CommPort port;
+       public static SerialPort serialport;
+       public static OutputStream outputstream;
+       public static InputStream inputstream;
 
     /**
      * Creates new form GUIApp1
@@ -41,7 +49,8 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabelHeading = new javax.swing.JLabel();
         jPanelBuzzer = new javax.swing.JPanel();
         jLabelBuzzer = new javax.swing.JLabel();
-        jButtonBuzzer = new javax.swing.JButton();
+        jButtonBuzzerOn = new javax.swing.JButton();
+        jButtonBuzzerOff = new javax.swing.JButton();
         jPanelMotionControl = new javax.swing.JPanel();
         jLabelMotionControl = new javax.swing.JLabel();
         jButtonStopMotion = new javax.swing.JButton();
@@ -51,6 +60,8 @@ public class GUIApp1 extends javax.swing.JFrame {
         jButtonForwardMotion = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        canvas1 = new java.awt.Canvas();
+        canvas2 = new java.awt.Canvas();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1300, 700));
@@ -62,6 +73,11 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabelCOMPort.setText("   COM PORT");
 
         jComboBoxCOMPorts.setEditable(true);
+        jComboBoxCOMPorts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCOMPortsActionPerformed(evt);
+            }
+        });
 
         jButtonCOMConnect.setText("Connect");
         jButtonCOMConnect.addActionListener(new java.awt.event.ActionListener() {
@@ -122,10 +138,17 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabelBuzzer.setForeground(new java.awt.Color(0, 0, 102));
         jLabelBuzzer.setText("  BUZZER");
 
-        jButtonBuzzer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIApp1/button.jpg"))); // NOI18N
-        jButtonBuzzer.addActionListener(new java.awt.event.ActionListener() {
+        jButtonBuzzerOn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIApp1/button.jpg"))); // NOI18N
+        jButtonBuzzerOn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuzzerActionPerformed(evt);
+                jButtonBuzzerOnActionPerformed(evt);
+            }
+        });
+
+        jButtonBuzzerOff.setText("Off");
+        jButtonBuzzerOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuzzerOffActionPerformed(evt);
             }
         });
 
@@ -137,8 +160,10 @@ public class GUIApp1 extends javax.swing.JFrame {
                 .addComponent(jLabelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBuzzerLayout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addComponent(jButtonBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jButtonBuzzerOff, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(jButtonBuzzerOn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanelBuzzerLayout.setVerticalGroup(
@@ -146,8 +171,10 @@ public class GUIApp1 extends javax.swing.JFrame {
             .addGroup(jPanelBuzzerLayout.createSequentialGroup()
                 .addComponent(jLabelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelBuzzerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonBuzzerOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonBuzzerOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         jPanelMotionControl.setBackground(new java.awt.Color(153, 204, 255));
@@ -245,15 +272,23 @@ public class GUIApp1 extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(canvas2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(canvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelFrameLayout = new javax.swing.GroupLayout(jPanelFrame);
@@ -267,13 +302,12 @@ public class GUIApp1 extends javax.swing.JFrame {
             .addGroup(jPanelFrameLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanelFrameLayout.createSequentialGroup()
-                            .addComponent(jPanelCOMPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanelMotionControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelFrameLayout.createSequentialGroup()
+                        .addComponent(jPanelCOMPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanelMotionControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelFrameLayout.setVerticalGroup(
@@ -305,28 +339,34 @@ public class GUIApp1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonBuzzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerActionPerformed
-        JOptionPane.showMessageDialog(jPanelFrame,"Buzzer Beeps");
-    }//GEN-LAST:event_jButtonBuzzerActionPerformed
+    private void jButtonBuzzerOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerOnActionPerformed
+        //JOptionPane.showMessageDialog(jPanelFrame,"Buzzer Beeps");
+        writeOnTerminal("7");
+    }//GEN-LAST:event_jButtonBuzzerOnActionPerformed
 
     private void jButtonForwardMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonForwardMotionActionPerformed
-        JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Forward");
+        //JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Forward");
+        writeOnTerminal("8");
     }//GEN-LAST:event_jButtonForwardMotionActionPerformed
 
     private void jButtonRightMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRightMotionActionPerformed
-        JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Right");
+        //JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Right");
+        writeOnTerminal("6");
     }//GEN-LAST:event_jButtonRightMotionActionPerformed
 
     private void jButtonBackwardMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackwardMotionActionPerformed
-       JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Backward");
+       //JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Backward");
+        writeOnTerminal("2");
     }//GEN-LAST:event_jButtonBackwardMotionActionPerformed
 
     private void jButtonLeftMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeftMotionActionPerformed
-        JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Left");
+        //JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Left");
+        writeOnTerminal("4");
     }//GEN-LAST:event_jButtonLeftMotionActionPerformed
 
     private void jButtonStopMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopMotionActionPerformed
-         JOptionPane.showMessageDialog(jPanelFrame,"Bot stops");
+         //JOptionPane.showMessageDialog(jPanelFrame,"Bot stops");
+        writeOnTerminal("5");
     }//GEN-LAST:event_jButtonStopMotionActionPerformed
 
     private void jButtonCOMConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCOMConnectActionPerformed
@@ -338,6 +378,18 @@ public class GUIApp1 extends javax.swing.JFrame {
         // TODO add your handling code here:
         removeSerialPorts();
     }//GEN-LAST:event_jButtonCOMExitActionPerformed
+
+    private void jComboBoxCOMPortsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCOMPortsActionPerformed
+        // TODO add your handling code here:
+        String selectedPort = (String)jComboBoxCOMPorts.getSelectedItem();
+        Connect(selectedPort);
+        //JOptionPane.showMessageDialog(jPanelFrame, selectedPort);
+    }//GEN-LAST:event_jComboBoxCOMPortsActionPerformed
+
+    private void jButtonBuzzerOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerOffActionPerformed
+        // TODO add your handling code here:
+        writeOnTerminal("9");
+    }//GEN-LAST:event_jButtonBuzzerOffActionPerformed
 
     /**
      * @param args the command line arguments
@@ -380,9 +432,9 @@ public class GUIApp1 extends javax.swing.JFrame {
     ArrayList portList = new ArrayList();
     String portArray[] = null;
     while (ports.hasMoreElements()) {
-        CommPortIdentifier port = (CommPortIdentifier) ports.nextElement();
-        if (port.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-            portList.add(port.getName());
+        CommPortIdentifier portIdentified = (CommPortIdentifier) ports.nextElement();
+        if (portIdentified.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+            portList.add(portIdentified.getName());
         }
     }
     portArray = (String[]) portList.toArray(new String[0]);
@@ -393,16 +445,111 @@ public class GUIApp1 extends javax.swing.JFrame {
     public void removeSerialPorts(){
         jComboBoxCOMPorts.removeAllItems();
     }
+    
+    public void writeOnTerminal(String serialmessage){
+        try {
+            outputstream.write(serialmessage.getBytes());
+        } catch (IOException ex) {
+            Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("written on serialport");
+    }
+    
+    public void Connect(String portName){
+        try {
+            System.out.println("Connect to Port");
+            portId = CommPortIdentifier.getPortIdentifier(portName);
+            System.out.println(portId.getName());
+            try {
+                port = portId.open("Demo Application", 5000);
+                System.out.println("Get the port's ownership");
+                //port.close();
+                serialport = (SerialPort)port;
+                int baudRate = 9600;
+                try {
+                    serialport.setSerialPortParams(
+                            baudRate,
+                            SerialPort.DATABITS_8,
+                            SerialPort.STOPBITS_1,
+                            SerialPort.PARITY_NONE);
+                    serialport.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
+                    System.out.println("Parameters set");
+                    try {
+                        inputstream = serialport.getInputStream();
+                        outputstream = serialport.getOutputStream();
+                        System.out.println("Set Inputstrem and Outputstream");
+                    } catch (IOException ex) {
+                        Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+ 
+                  } catch (UnsupportedCommOperationException ex) {
+                    //Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("UnsupportedCommOperationException");
+                }
+            } catch (PortInUseException ex) {
+                //Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("PortInUseException");
+            }
+            
+        } catch (NoSuchPortException ex) {
+            //Logger.getLogger(SerialCommunication.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("NoSuchPortException");
+        }
+        
+        
+        //System.out.println(portId);
+        
+       }
+    
+    /*public void SetInputOutputStream(){
+        try {
+            inputstream = serialport.getInputStream();
+            outputstream = serialport.getOutputStream();
+            System.out.println("Set Inputstrem and Outputstream");
+        } catch (IOException ex) {
+            Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }*/
+    
+    private class SerialEventHandler1 implements SerialPortEventListener{
+
+        @Override
+        public void serialEvent(SerialPortEvent spe) {
+            byte[] readBuffer = new byte[400];
+            System.out.println("Serial Event");
+            switch(spe.getEventType()){
+                case SerialPortEvent.DATA_AVAILABLE:
+                    int availableBytes;
+            try {
+                availableBytes = inputstream.available();
+                System.out.println(availableBytes);
+                    if(availableBytes>0){
+                        inputstream.read(readBuffer, 0, availableBytes);
+                        System.out.println(new String(readBuffer, 0, availableBytes));
+                }
+            }catch (IOException ex) {
+                Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+    }
+  }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBackwardMotion;
-    private javax.swing.JButton jButtonBuzzer;
+    private java.awt.Canvas canvas1;
+    private java.awt.Canvas canvas2;
+    public javax.swing.JButton jButtonBackwardMotion;
+    public javax.swing.JButton jButtonBuzzerOff;
+    private javax.swing.JButton jButtonBuzzerOn;
     public javax.swing.JButton jButtonCOMConnect;
     public javax.swing.JButton jButtonCOMExit;
-    private javax.swing.JButton jButtonForwardMotion;
-    private javax.swing.JButton jButtonLeftMotion;
-    private javax.swing.JButton jButtonRightMotion;
-    private javax.swing.JButton jButtonStopMotion;
+    public javax.swing.JButton jButtonForwardMotion;
+    public javax.swing.JButton jButtonLeftMotion;
+    public javax.swing.JButton jButtonRightMotion;
+    public javax.swing.JButton jButtonStopMotion;
     public javax.swing.JComboBox jComboBoxCOMPorts;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBuzzer;
