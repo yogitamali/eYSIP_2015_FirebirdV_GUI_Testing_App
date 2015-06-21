@@ -27,6 +27,8 @@ public class GUIApp1 extends javax.swing.JFrame {
     final static int SPACE_ASCII = 32;
     final static int DASH_ASCII = 45;
     final static int NEW_LINE_ASCII = 10;
+    int count=0; // used to set values of labels giving readings of sensors
+    int status=0; // buzzer on: status=0, buzzer off: status=1
     //Thread readThread;
 
     /**
@@ -57,8 +59,7 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabelHeading = new javax.swing.JLabel();
         jPanelBuzzer = new javax.swing.JPanel();
         jLabelBuzzer = new javax.swing.JLabel();
-        jButtonBuzzerOn = new javax.swing.JButton();
-        jButtonBuzzerOff = new javax.swing.JButton();
+        jButtonBuzzer = new javax.swing.JButton();
         jPanelMotionControl = new javax.swing.JPanel();
         jLabelMotionControl = new javax.swing.JLabel();
         jButtonStopMotion = new javax.swing.JButton();
@@ -70,9 +71,9 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         canvas1 = new java.awt.Canvas();
         canvas2 = new java.awt.Canvas();
-        jTextField1 = new javax.swing.JTextField();
         jLabelRightWLSensor = new javax.swing.JLabel();
         jLabelCenterWLSensor = new javax.swing.JLabel();
+        jLabelLeftWLSensor = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -84,8 +85,17 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jLabelIRSensor1 = new javax.swing.JLabel();
+        jLabelIRSensor2 = new javax.swing.JLabel();
+        jLabelIRSensor3 = new javax.swing.JLabel();
+        jLabelIRSensor4 = new javax.swing.JLabel();
+        jLabelIRSensor5 = new javax.swing.JLabel();
+        jLabelIRSensor6 = new javax.swing.JLabel();
+        jLabelIRSensor7 = new javax.swing.JLabel();
+        jLabelIRSensor8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        jLabelSharpIRSensor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -159,17 +169,10 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabelBuzzer.setForeground(new java.awt.Color(0, 0, 102));
         jLabelBuzzer.setText("  BUZZER");
 
-        jButtonBuzzerOn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIApp1/button.jpg"))); // NOI18N
-        jButtonBuzzerOn.addActionListener(new java.awt.event.ActionListener() {
+        jButtonBuzzer.setText("On");
+        jButtonBuzzer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuzzerOnActionPerformed(evt);
-            }
-        });
-
-        jButtonBuzzerOff.setText("Off");
-        jButtonBuzzerOff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBuzzerOffActionPerformed(evt);
+                jButtonBuzzerActionPerformed(evt);
             }
         });
 
@@ -181,10 +184,8 @@ public class GUIApp1 extends javax.swing.JFrame {
                 .addComponent(jLabelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBuzzerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonBuzzerOff, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jButtonBuzzerOn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE)
+                .addComponent(jButtonBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanelBuzzerLayout.setVerticalGroup(
@@ -192,9 +193,7 @@ public class GUIApp1 extends javax.swing.JFrame {
             .addGroup(jPanelBuzzerLayout.createSequentialGroup()
                 .addComponent(jLabelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelBuzzerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonBuzzerOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBuzzerOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jButtonBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -290,19 +289,16 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabel1.setText("WHITE LINE SENSORS");
 
         jLabelRightWLSensor.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelRightWLSensor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelCenterWLSensor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelLeftWLSensor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -312,23 +308,32 @@ public class GUIApp1 extends javax.swing.JFrame {
                         .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabelLeftWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(canvas2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(canvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(83, 83, 83))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(canvas2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(canvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelLeftWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
         );
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIApp1/logo1.png"))); // NOI18N
@@ -370,7 +375,7 @@ public class GUIApp1 extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +398,7 @@ public class GUIApp1 extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(344, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,16 +412,13 @@ public class GUIApp1 extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel8.setText("    VOLTAGE");
+        jLabel8.setText("VOLTAGE");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,20 +434,63 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(0, 0, 153));
         jLabel9.setText("   IR SENSORS READINGS");
 
+        jLabelIRSensor1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabelIRSensor8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabelIRSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelIRSensor1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor3, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor5, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor7, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(jLabelIRSensor4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(13, 13, 13))
         );
 
         jPanel10.setBackground(new java.awt.Color(153, 204, 255));
@@ -455,6 +500,9 @@ public class GUIApp1 extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(0, 0, 102));
         jLabel11.setText("DISTANCE SENSORS");
 
+        jLabelSharpIRSensor.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelSharpIRSensor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -463,13 +511,19 @@ public class GUIApp1 extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelSharpIRSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addGap(120, 120, 120)
+                .addComponent(jLabelSharpIRSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelFrameLayout = new javax.swing.GroupLayout(jPanelFrame);
@@ -481,7 +535,7 @@ public class GUIApp1 extends javax.swing.JFrame {
                 .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFrameLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
                         .addComponent(jLabelHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(420, 420, 420))
                     .addGroup(jPanelFrameLayout.createSequentialGroup()
@@ -497,16 +551,16 @@ public class GUIApp1 extends javax.swing.JFrame {
                             .addGroup(jPanelFrameLayout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelFrameLayout.createSequentialGroup()
-                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addGroup(jPanelFrameLayout.createSequentialGroup()
+                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
         jPanelFrameLayout.setVerticalGroup(
             jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,10 +602,18 @@ public class GUIApp1 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonBuzzerOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerOnActionPerformed
-        //JOptionPane.showMessageDialog(jPanelFrame,"Buzzer Beeps");
-        writeOnTerminal("7");
-    }//GEN-LAST:event_jButtonBuzzerOnActionPerformed
+    private void jButtonBuzzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerActionPerformed
+        if(status==0){
+            writeOnTerminal("7");
+            status=1;
+            jButtonBuzzer.setText("Off");
+        }
+        else if(status==1){
+            writeOnTerminal("9");
+            status=0;
+            jButtonBuzzer.setText("On");
+        }
+    }//GEN-LAST:event_jButtonBuzzerActionPerformed
 
     private void jButtonForwardMotionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonForwardMotionActionPerformed
         //JOptionPane.showMessageDialog(jPanelFrame,"Bot moves Forward");
@@ -596,11 +658,6 @@ public class GUIApp1 extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(jPanelFrame, selectedPort);
     }//GEN-LAST:event_jComboBoxCOMPortsActionPerformed
 
-    private void jButtonBuzzerOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerOffActionPerformed
-        // TODO add your handling code here:
-        writeOnTerminal("9");
-    }//GEN-LAST:event_jButtonBuzzerOffActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -637,8 +694,7 @@ public class GUIApp1 extends javax.swing.JFrame {
         });
     }
     
-    private void /*static String[]*/ listSerialPorts() {
- 
+    private void listSerialPorts() {   // Function to lis the available COM ports in jComboBox
     Enumeration ports = CommPortIdentifier.getPortIdentifiers();
     ArrayList portList = new ArrayList();
     String portArray[] = null;
@@ -651,14 +707,32 @@ public class GUIApp1 extends javax.swing.JFrame {
     portArray = (String[]) portList.toArray(new String[0]);
     //return portArray;
     jComboBoxCOMPorts.setModel(new javax.swing.DefaultComboBoxModel(portArray));
+    jComboBoxCOMPorts.setSelectedIndex(-1);
 }
     
-    public void removeSerialPorts(){
-        jComboBoxCOMPorts.removeAllItems();
-        serialport.close();
+    public void removeSerialPorts(){    // Function to disconnect to the serial port
+        try {
+            //jComboBoxCOMPorts.removeAllItems();
+            serialport.close();
+            jLabelRightWLSensor.setText(null);
+            jLabelCenterWLSensor.setText(null);
+            jLabelLeftWLSensor.setText(null);
+            jLabelIRSensor1.setText(null);
+            jLabelIRSensor2.setText(null);
+            jLabelIRSensor3.setText(null);
+            jLabelIRSensor4.setText(null);
+            jLabelIRSensor5.setText(null);
+            jLabelIRSensor6.setText(null);
+            jLabelIRSensor7.setText(null);
+            jLabelIRSensor8.setText(null);
+            outputstream.close();
+            inputstream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public void writeOnTerminal(String serialmessage){
+    public void writeOnTerminal(String serialmessage){  // Function to write on the serial port
         try {
             outputstream.write(serialmessage.getBytes());
             outputstream.flush();
@@ -676,14 +750,43 @@ public class GUIApp1 extends javax.swing.JFrame {
     
     }*/
     
-    private class ReadThread implements Runnable {
+    private class ReadThread implements Runnable {  // Thread to read the value of sensors
     public void run() {
         while(portId.isCurrentlyOwned()) {
             try {
                 writeOnTerminal("A");
-                Thread.sleep(1000);
-                //writeOnTerminal("B");
-                //Thread.sleep(1000);
+                count=1;
+                Thread.sleep(50);
+                writeOnTerminal("B");
+                count=2;
+                Thread.sleep(50);
+                writeOnTerminal("C");
+                count=3;
+                Thread.sleep(50);
+                writeOnTerminal("D");
+                count=4;
+                Thread.sleep(50);
+                writeOnTerminal("E");
+                count=5;
+                Thread.sleep(50);
+                writeOnTerminal("F");
+                count=6;
+                Thread.sleep(50);
+                writeOnTerminal("G");
+                count=7;
+                Thread.sleep(50);
+                writeOnTerminal("H");
+                count=8;
+                Thread.sleep(50);
+                writeOnTerminal("I");
+                count=9;
+                Thread.sleep(50);
+                writeOnTerminal("J");
+                count=10;
+                Thread.sleep(50);
+                writeOnTerminal("K");
+                count=11;
+                Thread.sleep(50);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -691,7 +794,7 @@ public class GUIApp1 extends javax.swing.JFrame {
     }
 }
     
-    public void Connect(String portName){
+    public void Connect(String portName){  // Function to connect to the serial port
         try {
             System.out.println("Connect to Port");
             portId = CommPortIdentifier.getPortIdentifier(portName);
@@ -732,7 +835,7 @@ public class GUIApp1 extends javax.swing.JFrame {
         
        }
     
-    public void SetInputOutputStream(){
+    public void SetInputOutputStream(){   // Function to set Input and Output Stream
         try {
             inputstream = serialport.getInputStream();
             outputstream = serialport.getOutputStream();
@@ -745,7 +848,7 @@ public class GUIApp1 extends javax.swing.JFrame {
     private class SerialEventHandler1 implements SerialPortEventListener{
 
         @Override
-        public void serialEvent(SerialPortEvent spe) {
+        public void serialEvent(SerialPortEvent spe) {   // Method called when event to read from serial port occurs
             //byte[] readBuffer = new byte[400];
             System.out.println("Serial Event");
             switch(spe.getEventType()){
@@ -764,9 +867,39 @@ public class GUIApp1 extends javax.swing.JFrame {
                     String input = new String();
                     input = String.valueOf(value);
                     System.out.println(input);
-                    jLabelRightWLSensor.setText(input);
-                    
-                    
+                    if(count==1){
+                        jLabelRightWLSensor.setText(input);
+                    }
+                    if(count==2){
+                        jLabelCenterWLSensor.setText(input);
+                    }
+                    if(count==3){
+                        jLabelLeftWLSensor.setText(input);
+                    }
+                    if(count==4){
+                        jLabelIRSensor1.setText(input);
+                    }
+                    if(count==5){
+                        jLabelIRSensor2.setText(input);
+                    }
+                    if(count==6){
+                        jLabelIRSensor3.setText(input);
+                    }
+                    if(count==7){
+                        jLabelIRSensor4.setText(input);
+                    }
+                    if(count==8){
+                        jLabelIRSensor5.setText(input);
+                    }
+                    if(count==9){
+                        jLabelIRSensor6.setText(input);
+                    }
+                    if(count==10){
+                        jLabelIRSensor7.setText(input);
+                    }
+                    if(count==11){
+                        jLabelIRSensor8.setText(input);
+                    }
                     //jLabel4.setText();
                     //System.out.println(logText);
                 }
@@ -791,7 +924,7 @@ public class GUIApp1 extends javax.swing.JFrame {
  }
         
     
-  public void setSerialEventHandler(){
+  public void setSerialEventHandler(){   // Function to set Event Listener to read from the serial port
       SerialEventHandler1 seh1 = new SerialEventHandler1();
         try {
             serialport.addEventListener(seh1);
@@ -808,8 +941,7 @@ public class GUIApp1 extends javax.swing.JFrame {
     private java.awt.Canvas canvas1;
     private java.awt.Canvas canvas2;
     public javax.swing.JButton jButtonBackwardMotion;
-    private javax.swing.JButton jButtonBuzzerOff;
-    private javax.swing.JButton jButtonBuzzerOn;
+    private javax.swing.JButton jButtonBuzzer;
     public javax.swing.JButton jButtonCOMConnect;
     public javax.swing.JButton jButtonCOMExit;
     public javax.swing.JButton jButtonForwardMotion;
@@ -829,8 +961,18 @@ public class GUIApp1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCOMPort;
     public javax.swing.JLabel jLabelCenterWLSensor;
     private javax.swing.JLabel jLabelHeading;
+    public javax.swing.JLabel jLabelIRSensor1;
+    public javax.swing.JLabel jLabelIRSensor2;
+    public javax.swing.JLabel jLabelIRSensor3;
+    public javax.swing.JLabel jLabelIRSensor4;
+    public javax.swing.JLabel jLabelIRSensor5;
+    public javax.swing.JLabel jLabelIRSensor6;
+    public javax.swing.JLabel jLabelIRSensor7;
+    public javax.swing.JLabel jLabelIRSensor8;
+    public javax.swing.JLabel jLabelLeftWLSensor;
     private javax.swing.JLabel jLabelMotionControl;
     public javax.swing.JLabel jLabelRightWLSensor;
+    public javax.swing.JLabel jLabelSharpIRSensor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel3;
@@ -842,6 +984,5 @@ public class GUIApp1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelCOMPort;
     private javax.swing.JPanel jPanelFrame;
     private javax.swing.JPanel jPanelMotionControl;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
