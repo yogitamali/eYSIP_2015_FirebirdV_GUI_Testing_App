@@ -28,8 +28,9 @@ public class GUIApp1 extends javax.swing.JFrame{
     final static int DASH_ASCII = 45;
     final static int NEW_LINE_ASCII = 10;
     int count=0; // used to set values of labels giving readings of sensors
-    int status=0; // buzzer on: status=0, buzzer off: status=1
-    int value, value1;
+    int statusBuzzer=0,statusConnect=0;
+    //static int statusVelocity=0; // buzzer on: status=0, buzzer off: status=1
+    int value, value1, SliderValue;
     float value2;
     Canvas canvas;
     //Thread readThread;
@@ -41,6 +42,11 @@ public class GUIApp1 extends javax.swing.JFrame{
         initComponents();
         jComboBoxCOMPorts.removeAllItems();
         listSerialPorts();
+        jTextFieldLeftMotor.setEnabled(false);
+        jTextFieldRightMotor.setEnabled(false);
+        //canvas2.setBounds(0,0,26,170);
+        //System.out.println(canvas2.getX());
+        //System.out.println(canvas2.getY());
     }
 
     /**
@@ -74,8 +80,9 @@ public class GUIApp1 extends javax.swing.JFrame{
         jLabelRightWLSensor = new javax.swing.JLabel();
         jLabelCenterWLSensor = new javax.swing.JLabel();
         jLabelLeftWLSensor = new javax.swing.JLabel();
-        canvas2 = new java.awt.Canvas();
-        canvas1 = new java.awt.Canvas();
+        jProgressBarLeftWLSensor = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarCenterWLSensor = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarRightWLSensor = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -83,9 +90,18 @@ public class GUIApp1 extends javax.swing.JFrame{
         jLabel7 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        jSliderRightMotor = new javax.swing.JSlider(JSlider.VERTICAL,0,255,0);
+        jTextFieldLeftMotor = new javax.swing.JTextField();
+        jTextFieldRightMotor = new javax.swing.JTextField();
+        jButtonVelocity = new javax.swing.JButton();
+        jSliderLeftMotor = new javax.swing.JSlider(JSlider.VERTICAL,0,255,0);
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabelVoltage = new javax.swing.JLabel();
+        jProgressBarBatteryVoltage = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabelIRSensor1 = new javax.swing.JLabel();
@@ -96,6 +112,14 @@ public class GUIApp1 extends javax.swing.JFrame{
         jLabelIRSensor6 = new javax.swing.JLabel();
         jLabelIRSensor7 = new javax.swing.JLabel();
         jLabelIRSensor8 = new javax.swing.JLabel();
+        jProgressBarIRSensor1 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor2 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor3 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor4 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor5 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor6 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor7 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarIRSensor8 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
         jPanel10 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabelSharpSensor3 = new javax.swing.JLabel();
@@ -103,9 +127,13 @@ public class GUIApp1 extends javax.swing.JFrame{
         jLabelSharpSensor2 = new javax.swing.JLabel();
         jLabelSharpSensor4 = new javax.swing.JLabel();
         jLabelSharpSensor5 = new javax.swing.JLabel();
+        jProgressBarSharpSensor1 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarSharpSensor2 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarSharpSensor3 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarSharpSensor4 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
+        jProgressBarSharpSensor5 = new javax.swing.JProgressBar(JProgressBar.VERTICAL);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1372, 750));
 
         jPanelFrame.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -192,7 +220,7 @@ public class GUIApp1 extends javax.swing.JFrame{
                 .addComponent(jLabelBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBuzzerLayout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addContainerGap(103, Short.MAX_VALUE)
                 .addComponent(jButtonBuzzer, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -303,54 +331,58 @@ public class GUIApp1 extends javax.swing.JFrame{
 
         jLabelLeftWLSensor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        canvas2.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarLeftWLSensor.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarLeftWLSensor.setMaximum(300);
+        jProgressBarLeftWLSensor.setPreferredSize(new java.awt.Dimension(26, 200));
 
-        canvas1.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarCenterWLSensor.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarCenterWLSensor.setMaximum(300);
+        jProgressBarCenterWLSensor.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarRightWLSensor.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarRightWLSensor.setMaximum(300);
+        jProgressBarRightWLSensor.setPreferredSize(new java.awt.Dimension(26, 200));
 
         javax.swing.GroupLayout jPanelWLSensorLayout = new javax.swing.GroupLayout(jPanelWLSensor);
         jPanelWLSensor.setLayout(jPanelWLSensorLayout);
         jPanelWLSensorLayout.setHorizontalGroup(
             jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                        .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                                .addGap(99, 99, 99)
-                                .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(4, 4, 4)
-                        .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(jLabelLeftWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelLeftWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanelWLSensorLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jProgressBarLeftWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(jProgressBarCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(jProgressBarRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         jPanelWLSensorLayout.setVerticalGroup(
             jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelWLSensorLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelWLSensorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(canvas2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelWLSensorLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(canvas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelLeftWLSensor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(31, 31, 31))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jProgressBarCenterWLSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jProgressBarLeftWLSensor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jProgressBarRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelWLSensorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelLeftWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCenterWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelRightWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUIApp1/logo1.png"))); // NOI18N
@@ -408,20 +440,124 @@ public class GUIApp1 extends javax.swing.JFrame{
         jLabel10.setForeground(new java.awt.Color(0, 0, 102));
         jLabel10.setText(" VELOCITY OF MOTORS");
 
+        jSliderRightMotor.setMajorTickSpacing(51);
+        jSliderRightMotor.setMaximum(255);
+        jSliderRightMotor.setMinorTickSpacing(3);
+        jSliderRightMotor.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSliderRightMotor.setPaintLabels(true);
+        jSliderRightMotor.setPaintTicks(true);
+        jSliderRightMotor.setValue(0);
+        jSliderRightMotor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                GetSliderValueRightMotor(evt);
+            }
+        });
+
+        jTextFieldLeftMotor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldLeftMotorActionPerformed(evt);
+            }
+        });
+
+        jTextFieldRightMotor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRightMotorActionPerformed(evt);
+            }
+        });
+
+        jButtonVelocity.setText("SET");
+        jButtonVelocity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVelocityActionPerformed(evt);
+            }
+        });
+
+        jSliderLeftMotor.setMajorTickSpacing(51);
+        jSliderLeftMotor.setMaximum(255);
+        jSliderLeftMotor.setMinorTickSpacing(3);
+        jSliderLeftMotor.setOrientation(javax.swing.JSlider.VERTICAL);
+        jSliderLeftMotor.setPaintLabels(true);
+        jSliderLeftMotor.setPaintTicks(true);
+        jSliderLeftMotor.setValue(0);
+        jSliderLeftMotor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                GetSliderValueLeftMotor(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel4.setText("Left Motor");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel5.setText("Right Motor");
+
+        jButton1.setText("RESET");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(344, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSliderLeftMotor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonVelocity, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE))
+                        .addGap(98, 98, 98)))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jSliderRightMotor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel5))
+                .addGap(23, 23, 23))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jTextFieldLeftMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextFieldRightMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSliderLeftMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSliderRightMotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(jButtonVelocity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(17, 17, 17)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldLeftMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldRightMotor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel7.setBackground(new java.awt.Color(153, 204, 255));
@@ -433,20 +569,30 @@ public class GUIApp1 extends javax.swing.JFrame{
 
         jLabelVoltage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jProgressBarBatteryVoltage.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarBatteryVoltage.setMaximum(20);
+        jProgressBarBatteryVoltage.setPreferredSize(new java.awt.Dimension(26, 200));
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabelVoltage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jProgressBarBatteryVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jProgressBarBatteryVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
+                .addComponent(jLabelVoltage, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         jPanel8.setBackground(new java.awt.Color(153, 204, 255));
@@ -472,38 +618,107 @@ public class GUIApp1 extends javax.swing.JFrame{
 
         jLabelIRSensor8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jProgressBarIRSensor1.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor1.setMaximum(300);
+        jProgressBarIRSensor1.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor2.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor2.setMaximum(300);
+        jProgressBarIRSensor2.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor3.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor3.setMaximum(300);
+        jProgressBarIRSensor3.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor4.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor4.setMaximum(300);
+        jProgressBarIRSensor4.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor5.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor5.setMaximum(300);
+        jProgressBarIRSensor5.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor6.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor6.setMaximum(300);
+        jProgressBarIRSensor6.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor7.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor7.setMaximum(300);
+        jProgressBarIRSensor7.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarIRSensor8.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarIRSensor8.setMaximum(300);
+        jProgressBarIRSensor8.setPreferredSize(new java.awt.Dimension(26, 200));
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(274, 274, 274))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabelIRSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jProgressBarIRSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jProgressBarIRSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jProgressBarIRSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(37, 37, 37)
+                                .addComponent(jProgressBarIRSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jProgressBarIRSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jProgressBarIRSensor6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jProgressBarIRSensor7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10))))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabelIRSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelIRSensor7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelIRSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelIRSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelIRSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelIRSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelIRSensor6, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelIRSensor7, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelIRSensor8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabelIRSensor8, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                        .addComponent(jProgressBarIRSensor8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20))))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jProgressBarIRSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jProgressBarIRSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jProgressBarIRSensor3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jProgressBarIRSensor4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jProgressBarIRSensor5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jProgressBarIRSensor6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBarIRSensor7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jProgressBarIRSensor8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelIRSensor1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                     .addComponent(jLabelIRSensor3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -533,6 +748,26 @@ public class GUIApp1 extends javax.swing.JFrame{
 
         jLabelSharpSensor5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jProgressBarSharpSensor1.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarSharpSensor1.setMaximum(800);
+        jProgressBarSharpSensor1.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarSharpSensor2.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarSharpSensor2.setMaximum(800);
+        jProgressBarSharpSensor2.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarSharpSensor3.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarSharpSensor3.setMaximum(800);
+        jProgressBarSharpSensor3.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarSharpSensor4.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarSharpSensor4.setMaximum(800);
+        jProgressBarSharpSensor4.setPreferredSize(new java.awt.Dimension(26, 200));
+
+        jProgressBarSharpSensor5.setBackground(new java.awt.Color(255, 255, 255));
+        jProgressBarSharpSensor5.setMaximum(800);
+        jProgressBarSharpSensor5.setPreferredSize(new java.awt.Dimension(26, 200));
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -540,17 +775,30 @@ public class GUIApp1 extends javax.swing.JFrame{
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabelSharpSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelSharpSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelSharpSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelSharpSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelSharpSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)
+                        .addComponent(jProgressBarSharpSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(jProgressBarSharpSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(jProgressBarSharpSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58)
+                        .addComponent(jProgressBarSharpSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jProgressBarSharpSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelSharpSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelSharpSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelSharpSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelSharpSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelSharpSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -558,14 +806,24 @@ public class GUIApp1 extends javax.swing.JFrame{
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelSharpSensor5, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jLabelSharpSensor4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSharpSensor3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(jLabelSharpSensor1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSharpSensor2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jProgressBarSharpSensor1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jProgressBarSharpSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jProgressBarSharpSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jProgressBarSharpSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelSharpSensor4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSharpSensor2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSharpSensor1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSharpSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSharpSensor5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jProgressBarSharpSensor3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelFrameLayout = new javax.swing.GroupLayout(jPanelFrame);
@@ -577,7 +835,7 @@ public class GUIApp1 extends javax.swing.JFrame{
                 .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelFrameLayout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 358, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
                         .addComponent(jLabelHeading, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(420, 420, 420))
                     .addGroup(jPanelFrameLayout.createSequentialGroup()
@@ -589,19 +847,18 @@ public class GUIApp1 extends javax.swing.JFrame{
                             .addComponent(jPanelMotionControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelWLSensor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelFrameLayout.createSequentialGroup()
+                        .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelFrameLayout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelFrameLayout.createSequentialGroup()
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanelFrameLayout.setVerticalGroup(
@@ -623,11 +880,11 @@ public class GUIApp1 extends javax.swing.JFrame{
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelWLSensor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanelWLSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -645,14 +902,14 @@ public class GUIApp1 extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonBuzzerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuzzerActionPerformed
-        if(status==0){
+        if(statusBuzzer==0){
             writeOnTerminal("7");
-            status=1;
+            statusBuzzer=1;
             jButtonBuzzer.setText("Off");
         }
-        else if(status==1){
+        else if(statusBuzzer==1){
             writeOnTerminal("9");
-            status=0;
+            statusBuzzer=0;
             jButtonBuzzer.setText("On");
         }
     }//GEN-LAST:event_jButtonBuzzerActionPerformed
@@ -684,21 +941,74 @@ public class GUIApp1 extends javax.swing.JFrame{
 
     private void jButtonCOMConnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCOMConnectActionPerformed
         // TODO add your handling code here:
+        //if(statusConnect==0){
         String selectedPort = (String)jComboBoxCOMPorts.getSelectedItem();
         Connect(selectedPort);
+        jTextFieldLeftMotor.setEnabled(true);
+        jTextFieldRightMotor.setEnabled(true);
         new Thread(new ReadThread()).start();
+        /*statusConnect=1;
+        jButtonCOMConnect.setText("Disconnect");
+        }
+        if(statusConnect==1){
+            statusConnect=0;
+            Thread.interrupted();
+            jButtonCOMConnect.setText("Connect");
+            writeOnTerminal("5");
+            removeSerialPorts();
+        }*/
     }//GEN-LAST:event_jButtonCOMConnectActionPerformed
 
     private void jButtonCOMExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCOMExitActionPerformed
         // TODO add your handling code here:
         removeSerialPorts();
+        //System.exit(0);
     }//GEN-LAST:event_jButtonCOMExitActionPerformed
 
     private void jComboBoxCOMPortsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCOMPortsActionPerformed
         // TODO add your handling code here:
-        
-        //JOptionPane.showMessageDialog(jPanelFrame, selectedPort);
     }//GEN-LAST:event_jComboBoxCOMPortsActionPerformed
+
+    private void GetSliderValueLeftMotor(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_GetSliderValueLeftMotor
+        // TODO add your handling code here:
+        int SliderValueLeftMotor = jSliderLeftMotor.getValue();
+        jTextFieldLeftMotor.setText(String.valueOf(SliderValueLeftMotor));
+    }//GEN-LAST:event_GetSliderValueLeftMotor
+
+    private void jTextFieldLeftMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLeftMotorActionPerformed
+        // TODO add your handling code here:
+        String SliderInputLeftMotor = jTextFieldLeftMotor.getText();
+        jSliderLeftMotor.setValue(Integer.parseInt(SliderInputLeftMotor));
+    }//GEN-LAST:event_jTextFieldLeftMotorActionPerformed
+
+    private void GetSliderValueRightMotor(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_GetSliderValueRightMotor
+        // TODO add your handling code here:
+        int SliderValueRightMotor = jSliderRightMotor.getValue();
+        jTextFieldRightMotor.setText(String.valueOf(SliderValueRightMotor));
+    }//GEN-LAST:event_GetSliderValueRightMotor
+
+    private void jTextFieldRightMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRightMotorActionPerformed
+        // TODO add your handling code here:
+        String SliderInputRightMotor = jTextFieldRightMotor.getText();
+        jSliderRightMotor.setValue(Integer.parseInt(SliderInputRightMotor));
+    }//GEN-LAST:event_jTextFieldRightMotorActionPerformed
+
+    private void jButtonVelocityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVelocityActionPerformed
+        // TODO add your handling code here:
+            writeOnTerminal("R");
+            int SpeedLeftMotor = Integer.parseInt(jTextFieldLeftMotor.getText());
+            System.out.println(String.valueOf(Character.toChars(SpeedLeftMotor)));
+            writeOnTerminal(String.valueOf(Character.toChars(SpeedLeftMotor)));
+            int SpeedRightMotor = Integer.parseInt(jTextFieldRightMotor.getText());
+            writeOnTerminal(String.valueOf(Character.toChars(SpeedRightMotor)));
+    }//GEN-LAST:event_jButtonVelocityActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        writeOnTerminal("R");
+        writeOnTerminal("NUL");
+        writeOnTerminal("NUL");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -757,7 +1067,8 @@ public class GUIApp1 extends javax.swing.JFrame{
     public void removeSerialPorts(){    // Function to disconnect to the serial port
         try {
             //jComboBoxCOMPorts.removeAllItems();
-            serialport.close();
+            Thread.interrupted();
+            writeOnTerminal("10");
             jLabelRightWLSensor.setText(null);
             jLabelCenterWLSensor.setText(null);
             jLabelLeftWLSensor.setText(null);
@@ -777,6 +1088,7 @@ public class GUIApp1 extends javax.swing.JFrame{
             jLabelVoltage.setText(null);
             outputstream.close();
             inputstream.close();
+            serialport.close();
         } catch (IOException ex) {
             Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -785,7 +1097,7 @@ public class GUIApp1 extends javax.swing.JFrame{
     public void writeOnTerminal(String serialmessage){  // Function to write on the serial port
         try {
             outputstream.write(serialmessage.getBytes());
-            outputstream.flush();
+            //outputstream.flush();
         } catch (IOException ex) {
             Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -797,58 +1109,58 @@ public class GUIApp1 extends javax.swing.JFrame{
     public void run() {
         while(portId.isCurrentlyOwned()) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(40);
                 writeOnTerminal("A");
                 count=1;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("B");
                 count=2;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("C");
                 count=3;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("D");
                 count=4;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("E");
                 count=5;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("F");
                 count=6;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("G");
                 count=7;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("H");
                 count=8;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("I");
                 count=9;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("J");
                 count=10;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("K");
                 count=11;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("L");
                 count=12;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("M");
                 count=13;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("N");
                 count=14;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("O");
                 count=15;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("P");
                 count=16;
-                Thread.sleep(60);
+                Thread.sleep(40);
                 writeOnTerminal("Q");
                 count=17;
-                Thread.sleep(60);
+                Thread.sleep(40);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -928,82 +1240,90 @@ public class GUIApp1 extends javax.swing.JFrame{
                     //System.out.println(value);
                     String input = new String();
                     input = String.valueOf(value);
+                    outputstream.flush();
                     //System.out.println(input);
                     if(count==1){
                         jLabelRightWLSensor.setText(input);
+                        jProgressBarRightWLSensor.setValue(value);
                     }
-                    if(count==2){
+                    else if(count==2){
                         jLabelCenterWLSensor.setText(input);
+                        jProgressBarCenterWLSensor.setValue(value);
                     }
-                    if(count==3){
+                    else if(count==3){
                         jLabelLeftWLSensor.setText(input);
+                        jProgressBarLeftWLSensor.setValue(value);
                     }
-                    if(count==4){
+                    else if(count==4){
                         jLabelIRSensor1.setText(input);
+                        jProgressBarIRSensor1.setValue(value);
                     }
-                    if(count==5){
+                    else if(count==5){
                         jLabelIRSensor2.setText(input);
+                        jProgressBarIRSensor2.setValue(value);
                     }
-                    if(count==6){
+                    else if(count==6){
                         jLabelIRSensor3.setText(input);
+                        jProgressBarIRSensor3.setValue(value);
                     }
-                    if(count==7){
+                    else if(count==7){
                         jLabelIRSensor4.setText(input);
+                        jProgressBarIRSensor4.setValue(value);
                     }
-                    if(count==8){
+                    else if(count==8){
                         jLabelIRSensor5.setText(input);
+                        jProgressBarIRSensor5.setValue(value);
                     }
-                    if(count==9){
+                    else if(count==9){
                         jLabelIRSensor6.setText(input);
+                        jProgressBarIRSensor6.setValue(value);
                     }
-                    if(count==10){
+                    else if(count==10){
                         jLabelIRSensor7.setText(input);
+                        jProgressBarIRSensor7.setValue(value);
                     }
-                    if(count==11){
+                    else if(count==11){
                         jLabelIRSensor8.setText(input);
+                        jProgressBarIRSensor8.setValue(value);
                     }
-                    if (count==12){
+                    else if (count==12){
                         value1= Sharp_GP2D12_estimation(value);
                         input = String.valueOf(value1);
                         jLabelSharpSensor1.setText(input+"mm");
+                        jProgressBarSharpSensor1.setValue(value1);
                     }
-                    if (count==13){
+                    else if (count==13){
                         value1= Sharp_GP2D12_estimation(value);
                         input = String.valueOf(value1);
                         jLabelSharpSensor2.setText(input+"mm");
+                        jProgressBarSharpSensor2.setValue(value1);
                     }
-                    if (count==14){
+                    else if (count==14){
                         value1= Sharp_GP2D12_estimation(value);
                         input = String.valueOf(value1);
                         jLabelSharpSensor3.setText(input+"mm");
+                        jProgressBarSharpSensor3.setValue(value1);
                     }
-                    if (count==15){
+                    else if (count==15){
                         value1= Sharp_GP2D12_estimation(value);
                         input = String.valueOf(value1);
                         jLabelSharpSensor4.setText(input+"mm");
+                        jProgressBarSharpSensor4.setValue(value1);
                     }
-                    if (count==16){
+                    else if (count==16){
                         value1= Sharp_GP2D12_estimation(value);
                         input = String.valueOf(value1);
                         jLabelSharpSensor5.setText(input+"mm");
+                        jProgressBarSharpSensor5.setValue(value1);
                     }
-                    if(count==17){
+                    else if(count==17){
                         value2 = (float)(((((value)*100)*0.07902) + 0.7)/100);
                         input = String.valueOf(value2);
                         jLabelVoltage.setText("   "+input+"V");
+                        jProgressBarBatteryVoltage.setValue((int)value2);
                                 
                     }
                 }
-                /*availableBytes = inputstream.available();
-                System.out.println(availableBytes);
-                    if(availableBytes>0){
-                        inputstream.read(readBuffer, 0, availableBytes);
-                        System.out.println(readBuffer);
-                        //String input = new String(readBuffer, 0, availableBytes);
-                        //System.out.println(Integer.decode(input));
-                        //while (len!=-1){
-                            
-                        }*/
             }catch (IOException ex) {
                 Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1038,12 +1358,17 @@ public class GUIApp1 extends javax.swing.JFrame{
 	return distanceInt;
      
  }
+
+   /* @Override
+ public void paint(Graphics g){
+     g.setColor(Color.red);
+     g.fillRect(0, 0, 26, value);
+ }*/
        
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public java.awt.Canvas canvas1;
-    public java.awt.Canvas canvas2;
+    public javax.swing.JButton jButton1;
     public javax.swing.JButton jButtonBackwardMotion;
     private javax.swing.JButton jButtonBuzzer;
     public javax.swing.JButton jButtonCOMConnect;
@@ -1052,12 +1377,15 @@ public class GUIApp1 extends javax.swing.JFrame{
     public javax.swing.JButton jButtonLeftMotion;
     public javax.swing.JButton jButtonRightMotion;
     public javax.swing.JButton jButtonStopMotion;
+    private javax.swing.JButton jButtonVelocity;
     public javax.swing.JComboBox jComboBoxCOMPorts;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1093,5 +1421,26 @@ public class GUIApp1 extends javax.swing.JFrame{
     private javax.swing.JPanel jPanelFrame;
     private javax.swing.JPanel jPanelMotionControl;
     public javax.swing.JPanel jPanelWLSensor;
+    public javax.swing.JProgressBar jProgressBarBatteryVoltage;
+    public javax.swing.JProgressBar jProgressBarCenterWLSensor;
+    public javax.swing.JProgressBar jProgressBarIRSensor1;
+    public javax.swing.JProgressBar jProgressBarIRSensor2;
+    public javax.swing.JProgressBar jProgressBarIRSensor3;
+    public javax.swing.JProgressBar jProgressBarIRSensor4;
+    public javax.swing.JProgressBar jProgressBarIRSensor5;
+    public javax.swing.JProgressBar jProgressBarIRSensor6;
+    public javax.swing.JProgressBar jProgressBarIRSensor7;
+    public javax.swing.JProgressBar jProgressBarIRSensor8;
+    public javax.swing.JProgressBar jProgressBarLeftWLSensor;
+    public javax.swing.JProgressBar jProgressBarRightWLSensor;
+    public javax.swing.JProgressBar jProgressBarSharpSensor1;
+    public javax.swing.JProgressBar jProgressBarSharpSensor2;
+    public javax.swing.JProgressBar jProgressBarSharpSensor3;
+    public javax.swing.JProgressBar jProgressBarSharpSensor4;
+    public javax.swing.JProgressBar jProgressBarSharpSensor5;
+    public javax.swing.JSlider jSliderLeftMotor;
+    public javax.swing.JSlider jSliderRightMotor;
+    public javax.swing.JTextField jTextFieldLeftMotor;
+    public javax.swing.JTextField jTextFieldRightMotor;
     // End of variables declaration//GEN-END:variables
 }
