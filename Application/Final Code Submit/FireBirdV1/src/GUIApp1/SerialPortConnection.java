@@ -39,7 +39,7 @@ public class SerialPortConnection
     /*
     * Function Name: removeSerialPorts
     * Input: void
-    * Output: disconnect the connect serial port
+    * Output: disconnects the serial port and stops the motion of the robot and turns off the buzzer  
     * Logic: calls removeEventListener() method of SerialPort class to stop the event that occurs while reading from terminal
     *        and also closes the serial port, input and output stream
     * Example Call: removeSerialPorts()

@@ -534,6 +534,18 @@ public class GUIApp1 extends javax.swing.JFrame
                 jTextFieldServo1ActionPerformed();
             }
         });
+        
+        jTextFieldServo2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldServo2ActionPerformed();
+            }
+        });
+        
+        jTextFieldServo3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldServo3ActionPerformed();
+            }
+        });
 
         jButtonServo1.setText("Rotate");
         jButtonServo1.addActionListener(new java.awt.event.ActionListener() {
@@ -550,6 +562,11 @@ public class GUIApp1 extends javax.swing.JFrame
         });
 
         jButtonServo3.setText("Rotate");
+        jButtonServo3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonServo3ActionPerformed();
+            }
+        });
 
         javax.swing.GroupLayout jPanelServoMotorLayout = new javax.swing.GroupLayout(jPanelServoMotor);
         jPanelServoMotor.setLayout(jPanelServoMotorLayout);
@@ -1816,7 +1833,29 @@ public class GUIApp1 extends javax.swing.JFrame
             Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /*
+     *
+     * Function Name: jButtonServo3ActionPerformed
+     * Input: None
+     * Output: rotates the servo motor S3 by specified degrees
+     * Logic: gets the value of the angle by which motor has to be rotated from the jTextFieldServo3 by calling getText method 
+     *        and then sends the value to the outputstream to rotate the motor
+     * Example Call: jButtonServo3ActionPerformed()
+     *
+     */
+    private void jButtonServo3ActionPerformed() {
+        
+        jSliderServo3.setValue(Integer.parseInt(jTextFieldServo3.getText()));
+        try {
+            spc.outputstream.write(0x82);
+            spc.outputstream.write((byte)Integer.parseInt(jTextFieldServo3.getText()));
+        } catch (IOException ex) {
+            Logger.getLogger(GUIApp1.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     /*
      *
      * Function Name: jButtonLCDPrintActionPerformed
@@ -1895,11 +1934,36 @@ public class GUIApp1 extends javax.swing.JFrame
      *
      */
     private void jTextFieldServo1ActionPerformed() {
-     
-        jSliderServo1.setValue(Integer.parseInt(jTextFieldServo1.getText()));
+       jSliderServo1.setValue(Integer.parseInt(jTextFieldServo1.getText()));
     }
-
     
+    /*
+     *
+     * Function Name: jTextFieldServo2ActionPerformed
+     * Input: None
+     * Output: sets the jSliderServo2 slider value according to the text entered in the jTextFieldServo2
+     * Logic: gets the value from the jTextFieldServo2 by calling getText method, then converts it into an integer 
+     *        value and finally sets the value of slider by calling setValue method.
+     * Example Call: jTextFieldServo1ActionPerformed()
+     *
+     */
+    private void jTextFieldServo2ActionPerformed() {
+       jSliderServo2.setValue(Integer.parseInt(jTextFieldServo2.getText()));
+    }
+    
+    /*
+     *
+     * Function Name: jTextFieldServo3ActionPerformed
+     * Input: None
+     * Output: sets the jSliderServo3 slider value according to the text entered in the jTextFieldServo3
+     * Logic: gets the value from the jTextFieldServo3 by calling getText method, then converts it into an integer 
+     *        value and finally sets the value of slider by calling setValue method.
+     * Example Call: jTextFieldServo1ActionPerformed()
+     *
+     */
+    private void jTextFieldServo3ActionPerformed() {
+       jSliderServo3.setValue(Integer.parseInt(jTextFieldServo3.getText()));
+    }
 
   
     /*
