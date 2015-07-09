@@ -1,0 +1,7 @@
+User Manual: Add project page, FiredCode (change), Installing GUI: 1.their, 3.rxtxSerial 4. rxtxParallel.dll 6. tests 7. shift line above 11. give range 12.give range 13. angel, bot 14. row column range 15. till 0 17 for 18 IR sensors 18 & 19 maxiumum to min value 19. distance sensors Max-min value
+
+
+Developer Manual: Add project page, Strin, Change project name, &, Revise first para, Add input/result desciption
+
+
+Report: Page as per template, GUI Application, OS, design, angel, Extra spacing, Formatted Code, Wrote->Develop, rxtxParallel.dll, give the command, path jdk/jre/bin, Linux (13), platform(15), Refults revise first para, Windows (Cap W), Issues 1. revise this point, Related solu to issues, Add References
