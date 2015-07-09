@@ -5,3 +5,5 @@ Developer Manual: Add project page, Strin, Change project name, &, Revise first 
 
 
 Report: Page as per template, GUI Application, OS, design, angel, Extra spacing, Formatted Code, Wrote->Develop, rxtxParallel.dll, give the command, path jdk/jre/bin, Linux (13), platform(15), Refults revise first para, Windows (Cap W), Issues 1. revise this point, Related solu to issues, Add References
+
+Wiki: Update daily report, Task list, each task page should have a page
