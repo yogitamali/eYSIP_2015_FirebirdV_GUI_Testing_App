@@ -1,0 +1,289 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.25)  13 JUL 2015 14:21
+entering extended mode
+**usermanual.tex
+(usermanual.tex
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 68 languages loaded.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size10.clo"
+File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 137.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+)
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count88
+\Gm@cntv=\count89
+\c@Gm@tempcnt=\count90
+\Gm@bindingoffset=\dimen105
+\Gm@wd@mp=\dimen106
+\Gm@odd@mp=\dimen107
+\Gm@even@mp=\dimen108
+\Gm@layoutwidth=\dimen109
+\Gm@layoutheight=\dimen110
+\Gm@layouthoffset=\dimen111
+\Gm@layoutvoffset=\dimen112
+\Gm@dimlist=\toks15
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+(usermanual.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+ ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count91
+\scratchdimen=\dimen113
+\scratchbox=\box26
+\nofMPsegments=\count92
+\nofMParguments=\count93
+\everyMPshowfont=\toks16
+\MPscratchCnt=\count94
+\MPscratchDim=\dimen114
+\MPnumerator=\count95
+\makeMPintoPDFobject=\count96
+\everyMPtoPDFconversion=\toks17
+)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(56.9055pt, 702.78308pt, 85.35826pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=702.78308pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-52.36449pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <24.88> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 8.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <17.28> on input line 8.
+[1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 17.
+
+<cmd.png, id=8, 509.65407pt x 257.46187pt>
+File: cmd.png Graphic file (type png)
+ <use cmd.png>
+Package pdftex.def Info: cmd.png used on input line 36.
+(pdftex.def)             Requested size: 254.8264pt x 128.7306pt.
+
+<GUI.png, id=9, 1028.34187pt x 549.55313pt>
+File: GUI.png Graphic file (type png)
+ <use GUI.png>
+Package pdftex.def Info: GUI.png used on input line 43.
+(pdftex.def)             Requested size: 514.16968pt x 274.7759pt.
+
+Overfull \hbox (58.92557pt too wide) in paragraph at lines 43--44
+ [] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[2 <./cmd.png>] <comport.png, id=15, 1028.34187pt x 548.0475pt>
+File: comport.png Graphic file (type png)
+
+<use comport.png>
+Package pdftex.def Info: comport.png used on input line 51.
+(pdftex.def)             Requested size: 411.32947pt x 219.2151pt.
+ [3 <./GUI.png> <./comport.png>]
+<buzzer.png, id=20, 1028.34187pt x 549.55313pt>
+File: buzzer.png Graphic file (type png)
+ <use buzzer.png>
+Package pdftex.def Info: buzzer.png used on input line 59.
+(pdftex.def)             Requested size: 411.32947pt x 219.81735pt.
+
+<motioncontrol.png, id=21, 1028.34187pt x 548.0475pt>
+File: motioncontrol.png Graphic file (type png)
+ <use motioncontrol.png>
+Package pdftex.def Info: motioncontrol.png used on input line 66.
+(pdftex.def)             Requested size: 411.32947pt x 219.2151pt.
+
+[4 <./buzzer.png> <./motioncontrol.png>]
+<velocitycontrol.png, id=26, 1028.34187pt x 548.0475pt>
+File: velocitycontrol.png Graphic file (type png)
+
+<use velocitycontrol.png>
+Package pdftex.def Info: velocitycontrol.png used on input line 74.
+(pdftex.def)             Requested size: 411.32947pt x 219.2151pt.
+ <servomotor.png, id=27, 1028.34187pt x 548.80031pt>
+File: servomotor.png Graphic file (type png)
+
+<use servomotor.png>
+Package pdftex.def Info: servomotor.png used on input line 81.
+(pdftex.def)             Requested size: 411.32947pt x 219.51622pt.
+ [5 <./velocitycontrol.png> <./servomotor.png>]
+<movement_rotation.png, id=31, 1028.34187pt x 549.55313pt>
+File: movement_rotation.png Graphic file (type png)
+
+<use movement_rotation.png>
+Package pdftex.def Info: movement_rotation.png used on input line 89.
+(pdftex.def)             Requested size: 411.32947pt x 219.81735pt.
+ <printLCD.png, id=32, 1028.34187pt x 548.80031pt>
+File: printLCD.png Graphic file (type png)
+
+<use printLCD.png>
+Package pdftex.def Info: printLCD.png used on input line 96.
+(pdftex.def)             Requested size: 411.32947pt x 219.51622pt.
+ [6 <./movement_rotation.png> <./printLCD.png>]
+<BarLED.png, id=36, 1028.34187pt x 548.80031pt>
+File: BarLED.png Graphic file (type png)
+ <use BarLED.png>
+Package pdftex.def Info: BarLED.png used on input line 104.
+(pdftex.def)             Requested size: 411.32947pt x 219.51622pt.
+
+<batteryvoltage.png, id=37, 1028.34187pt x 549.55313pt>
+File: batteryvoltage.png Graphic file (type png)
+
+<use batteryvoltage.png>
+Package pdftex.def Info: batteryvoltage.png used on input line 111.
+(pdftex.def)             Requested size: 411.32947pt x 219.81735pt.
+ [7 <./BarLED.png> <./batteryvoltage.png>]
+<WLSensor.png, id=43, 1028.34187pt x 548.80031pt>
+File: WLSensor.png Graphic file (type png)
+ <use WLSensor.png>
+Package pdftex.def Info: WLSensor.png used on input line 119.
+(pdftex.def)             Requested size: 411.32947pt x 219.51622pt.
+
+<IRSensor.png, id=44, 1028.34187pt x 548.0475pt>
+File: IRSensor.png Graphic file (type png)
+ <use IRSensor.png>
+Package pdftex.def Info: IRSensor.png used on input line 126.
+(pdftex.def)             Requested size: 411.32947pt x 219.2151pt.
+ [8 <./WLSensor.png> <./IRSensor.png>]
+<distancesensor.png, id=48, 1028.34187pt x 548.80031pt>
+File: distancesensor.png Graphic file (type png)
+
+<use distancesensor.png>
+Package pdftex.def Info: distancesensor.png used on input line 134.
+(pdftex.def)             Requested size: 411.32947pt x 219.51622pt.
+ <disconnect.png, id=49, 1028.34187pt x 549.55313pt>
+File: disconnect.png Graphic file (type png)
+
+<use disconnect.png>
+Package pdftex.def Info: disconnect.png used on input line 141.
+(pdftex.def)             Requested size: 411.32947pt x 219.81735pt.
+ [9 <./distancesensor.png> <./disconnect.png>]
+(usermanual.aux) ) 
+Here is how much of TeX's memory you used:
+ 1739 strings out of 493698
+ 23986 string characters out of 3144386
+ 88058 words of memory out of 3000000
+ 5077 multiletter control sequences out of 15000+200000
+ 8823 words of font info for 31 fonts, out of 3000000 for 9000
+ 1025 hyphenation exceptions out of 8191
+ 25i,8n,31p,466b,338s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on usermanual.pdf (9 pages, 892342 bytes).
+PDF statistics:
+ 70 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+
