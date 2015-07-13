@@ -1,5 +1,6 @@
 \documentclass{article}
 %\raggedright
+\usepackage{listings}
 \usepackage{color}
 \usepackage{graphicx}
 \usepackage[a4paper,hmargin=25mm,bmargin=30mm,top=20mm]{geometry}
@@ -83,24 +84,42 @@
 		    \item Developed the code to connect to the serial port by opening the port and set its parameters such as baudrate, data bits, stop bits, parity bit and setting the FLOWCONTROL. \\
 		    Code to connect the serial port is as follows:
 		    \newpage
-			port = portId.open("Demo Application", 5000); \\
-			serialport = (SerialPort)port; \\
-			int baudRate = 115200; \\
-			serialport.setSerialPortParams( \\
-		    baudRate, \\
-			SerialPort.DATABITS\_8, \\
-			SerialPort.STOPBITS\_1, \\
-		    SerialPort.PARITY\_NONE); \\
-		    serialport.setFlowControlMode(SerialPort.FLOWCONTROL\_NONE); \\
+		    \begin{flushleft}
+		    	\lstset{language=Java, showspaces=false,
+		    		showstringspaces=false, tabsize=1, breaklines=true}
+		    	\begin{lstlisting}
+		    	port = portId.open("Demo Application", 5000); 
+		    	serialport = (SerialPort)port; 
+		    	int baudRate = 115200; 
+		    	serialport.setSerialPortParams( 
+		    	                   baudRate, 
+		    	                   SerialPort.DATABITS_8, 
+		    	                   SerialPort.STOPBITS_1, 
+		    	                   SerialPort.PARITY_NONE); 
+		    	serialport.setFlowControlMode(SerialPort.FLOWCONTROL_NONE); 
+		    	\end{lstlisting}
+		    \end{flushleft}
 		    The above code throws UnsupportedCommOperationException, PortInUseException and NoSuchPortException exception.
-			\item Developed the code to disconnect the serial port by closing the port. To disconnect the port close the serial port, output stream and input stream and removes event listener as follows: \\
-			serialport.removeEventListener(); \\
-			serialport.close(); \\
-			outputstream.close(); \\
-			inputstream.close();
-			\item Developed the code to write on serial port using output stream. write(byte[]) method of OutputStream class is used to witre any string on the serial port.Code to write on serial port is as follow- \\
-			outputstream.write(serialmessage.getBytes()); \\
-			outputstream.flush();
+			\item Developed the code to disconnect the serial port by closing the port. To disconnect the port close the serial port, output stream and input stream and removes event listener as follows: 
+			\begin{flushleft}
+				\lstset{language=Java, showspaces=false,
+					showstringspaces=false, tabsize=1, breaklines=true}
+				\begin{lstlisting}
+					serialport.removeEventListener(); 
+					serialport.close(); 
+					outputstream.close(); 
+					inputstream.close();
+				\end{lstlisting}
+			\end{flushleft}
+			\item Developed the code to write on serial port using output stream. write(byte[]) method of OutputStream class is used to witre any string on the serial port.Code to write on serial port is as follow- 
+			\begin{flushleft}
+				\lstset{language=Java, showspaces=false,
+					showstringspaces=false, tabsize=1, breaklines=true}
+				\begin{lstlisting}
+				outputstream.write(serialmessage.getBytes()); 
+				outputstream.flush();
+				\end{lstlisting}
+			\end{flushleft}
 			\item Developed the code to read from serial port by using serial event listener and using the input stream. In this a class is created implementing the interface SerialPortEventListener whose serialEvent method is called whenever data is available in inputstream.  
 		\end{itemize}
 		\item \textbf{\large Develop GUI for Various Components}
@@ -179,7 +198,7 @@
 				\begin{figure}[h]
 					\begin{center}
 						\includegraphics[scale=0.75]{irsensor.png}
-					\end{center}
+					\end{center} 
 				\end{figure} \\
 				IR Sensors 6, 7 and 8 works only when jumper 4 is connected. Sometimes IR sensors reading of 6, 7 and 8 on progress bar does not match the reading on the console. Like reading of these sensors is 0,0,0 on console but on progress bar it shows 90,0,0. IR Sensors reading varies from 0 to 255.
 				\newpage

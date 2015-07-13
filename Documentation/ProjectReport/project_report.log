@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.25)  13 JUL 2015 12:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (MiKTeX 2.9) (preloaded format=pdflatex 2015.5.25)  13 JUL 2015 15:03
 entering extended mode
 **project_report.tex
 (project_report.tex
@@ -21,6 +21,35 @@ File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+\lst@mode=\count87
+\lst@gtempboxa=\box26
+\lst@token=\toks15
+\lst@length=\count88
+\lst@currlwidth=\dimen103
+\lst@column=\count89
+\lst@pos=\count90
+\lst@lostspace=\dimen104
+\lst@width=\dimen105
+\lst@newlines=\count91
+\lst@lineno=\count92
+\lst@maxwidth=\dimen106
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
+\c@lstnumber=\count93
+\lst@skipnumbers=\count94
+\lst@framebox=\box27
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2014/09/06 1.5e listings configuration
+))
+Package: listings 2014/09/06 1.5e (Carsten Heinz)
+
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
 Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 
@@ -38,15 +67,11 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count87
+\Gread@gobject=\count95
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks14
-)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
 Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
 
@@ -58,8 +83,8 @@ File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 )
-\Gin@req@height=\dimen103
-\Gin@req@width=\dimen104
+\Gin@req@height=\dimen107
+\Gin@req@width=\dimen108
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
 Package: geometry 2010/09/12 v5.6 Page Geometry
@@ -75,47 +100,48 @@ Package ifvtex Info: VTeX not detected.
 ("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count88
-\Gm@cntv=\count89
-\c@Gm@tempcnt=\count90
-\Gm@bindingoffset=\dimen105
-\Gm@wd@mp=\dimen106
-\Gm@odd@mp=\dimen107
-\Gm@even@mp=\dimen108
-\Gm@layoutwidth=\dimen109
-\Gm@layoutheight=\dimen110
-\Gm@layouthoffset=\dimen111
-\Gm@layoutvoffset=\dimen112
-\Gm@dimlist=\toks15
+\Gm@cnth=\count96
+\Gm@cntv=\count97
+\c@Gm@tempcnt=\count98
+\Gm@bindingoffset=\dimen109
+\Gm@wd@mp=\dimen110
+\Gm@odd@mp=\dimen111
+\Gm@even@mp=\dimen112
+\Gm@layoutwidth=\dimen113
+\Gm@layoutheight=\dimen114
+\Gm@layouthoffset=\dimen115
+\Gm@layoutvoffset=\dimen116
+\Gm@dimlist=\toks16
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
 (project_report.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+\c@lstlisting=\count99
 
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count91
-\scratchdimen=\dimen113
-\scratchbox=\box26
-\nofMPsegments=\count92
-\nofMParguments=\count93
-\everyMPshowfont=\toks16
-\MPscratchCnt=\count94
-\MPscratchDim=\dimen114
-\MPnumerator=\count95
-\makeMPintoPDFobject=\count96
-\everyMPtoPDFconversion=\toks17
+\scratchcounter=\count100
+\scratchdimen=\dimen117
+\scratchbox=\box28
+\nofMPsegments=\count101
+\nofMParguments=\count102
+\everyMPshowfont=\toks17
+\MPscratchCnt=\count103
+\MPscratchDim=\dimen118
+\MPnumerator=\count104
+\makeMPintoPDFobject=\count105
+\everyMPtoPDFconversion=\toks18
 )
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -152,54 +178,57 @@ LaTeX Font Info:    ... okay on input line 7.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 9.
+(Font)              <7> on input line 10.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 9.
+(Font)              <5> on input line 10.
 
-Overfull \hbox (26.85593pt too wide) in paragraph at lines 13--14
+Overfull \hbox (26.85593pt too wide) in paragraph at lines 14--15
  $[]$ 
  []
 
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 37--38
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 38--39
 
  []
 
 
-Underfull \hbox (badness 2781) in paragraph at lines 48--48
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
+
+
+Underfull \hbox (badness 2781) in paragraph at lines 49--49
 []\OT1/cmr/m/n/10 Installation and Study JAVA- AWT,
  []
 
 [4]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 71.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 72.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 71.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 72.
  [5]
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2014/09/06 1.5e listings language file
+)
 <comport.png, id=22, 143.78719pt x 94.10156pt>
 File: comport.png Graphic file (type png)
  <use comport.png>
-Package pdftex.def Info: comport.png used on input line 111.
+Package pdftex.def Info: comport.png used on input line 130.
 (pdftex.def)             Requested size: 143.78683pt x 94.10132pt.
  [6 <./comport.png>] <buzzer.png, id=28, 98.61844pt x 94.85437pt>
 File: buzzer.png Graphic file (type png)
  <use buzzer.png>
-Package pdftex.def Info: buzzer.png used on input line 122.
+Package pdftex.def Info: buzzer.png used on input line 141.
 (pdftex.def)             Requested size: 98.61818pt x 94.85413pt.
 
 <motioncontrol.png, id=29, 250.68657pt x 164.86594pt>
 File: motioncontrol.png Graphic file (type png)
  <use motioncontrol.png>
-Package pdftex.def Info: motioncontrol.png used on input line 134.
+Package pdftex.def Info: motioncontrol.png used on input line 153.
 (pdftex.def)             Requested size: 250.68594pt x 164.86551pt.
 
 [7 <./buzzer.png> <./motioncontrol.png>]
@@ -207,10 +236,10 @@ Package pdftex.def Info: motioncontrol.png used on input line 134.
 File: velocitycontrol.png Graphic file (type png)
 
 <use velocitycontrol.png>
-Package pdftex.def Info: velocitycontrol.png used on input line 147.
+Package pdftex.def Info: velocitycontrol.png used on input line 166.
 (pdftex.def)             Requested size: 254.45pt x 226.596pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
  []
 
@@ -219,14 +248,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 153--154
 File: rotation_movement.png Graphic file (type png)
 
 <use rotation_movement.png>
-Package pdftex.def Info: rotation_movement.png used on input line 159.
+Package pdftex.def Info: rotation_movement.png used on input line 178.
 (pdftex.def)             Requested size: 191.96672pt x 226.596pt.
 
 <whitelinesensor.png, id=42, 210.7875pt x 225.84375pt>
 File: whitelinesensor.png Graphic file (type png)
 
 <use whitelinesensor.png>
-Package pdftex.def Info: whitelinesensor.png used on input line 173.
+Package pdftex.def Info: whitelinesensor.png used on input line 192.
 (pdftex.def)             Requested size: 210.78699pt x 225.84319pt.
 
 
@@ -236,84 +265,84 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: irsensor.png Graphic file (type png)
 
 <use irsensor.png>
-Package pdftex.def Info: irsensor.png used on input line 181.
+Package pdftex.def Info: irsensor.png used on input line 200.
 (pdftex.def)             Requested size: 254.07358pt x 195.35435pt.
  [10 <./whitelinesensor.png> <./irsensor.png>]
 <distance_sensor.png, id=53, 339.51843pt x 226.59656pt>
 File: distance_sensor.png Graphic file (type png)
 
 <use distance_sensor.png>
-Package pdftex.def Info: distance_sensor.png used on input line 189.
+Package pdftex.def Info: distance_sensor.png used on input line 208.
 (pdftex.def)             Requested size: 254.63818pt x 169.94699pt.
  <batteryvoltage.png, id=54, 65.49469pt x 258.9675pt>
 File: batteryvoltage.png Graphic file (type png)
 
 <use batteryvoltage.png>
-Package pdftex.def Info: batteryvoltage.png used on input line 198.
+Package pdftex.def Info: batteryvoltage.png used on input line 217.
 (pdftex.def)             Requested size: 49.12088pt x 194.22513pt.
  [11 <./distance_sensor.png> <./batteryvoltage.png>]
 <servomotor.png, id=60, 195.73125pt x 258.21469pt>
 File: servomotor.png Graphic file (type png)
  <use servomotor.png>
-Package pdftex.def Info: servomotor.png used on input line 207.
+Package pdftex.def Info: servomotor.png used on input line 226.
 (pdftex.def)             Requested size: 146.79807pt x 193.66054pt.
 
 <lcd.png, id=61, 141.52875pt x 158.09062pt>
 File: lcd.png Graphic file (type png)
  <use lcd.png>
-Package pdftex.def Info: lcd.png used on input line 220.
+Package pdftex.def Info: lcd.png used on input line 239.
 (pdftex.def)             Requested size: 141.5284pt x 158.09023pt.
  [12 <./servomotor.png> <./lcd.png>] <bargraphled.png, id=67, 142.28156pt x 98.
 61844pt>
 File: bargraphled.png Graphic file (type png)
 
 <use bargraphled.png>
-Package pdftex.def Info: bargraphled.png used on input line 231.
+Package pdftex.def Info: bargraphled.png used on input line 250.
 (pdftex.def)             Requested size: 142.2812pt x 98.61818pt.
  <GUI.png, id=68, 1028.34187pt x 548.0475pt>
 File: GUI.png Graphic file (type png)
 
 <use GUI.png>
-Package pdftex.def Info: GUI.png used on input line 238.
+Package pdftex.def Info: GUI.png used on input line 257.
 (pdftex.def)             Requested size: 514.16968pt x 274.02307pt.
 
-Overfull \hbox (58.92557pt too wide) in paragraph at lines 238--239
+Overfull \hbox (58.92557pt too wide) in paragraph at lines 257--258
  [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 243--244
+Underfull \hbox (badness 10000) in paragraph at lines 262--263
 
  []
 
 [13 <./bargraphled.png> <./GUI.png>]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 252.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 271.
  [14] [15]
-Underfull \hbox (badness 10000) in paragraph at lines 268--269
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 268--269
+Underfull \hbox (badness 10000) in paragraph at lines 287--288
 
  []
 
 [16] [17] (project_report.aux) ) 
 Here is how much of TeX's memory you used:
- 1733 strings out of 493698
- 24004 string characters out of 3144386
- 89076 words of memory out of 3000000
- 5072 multiletter control sequences out of 15000+200000
+ 3037 strings out of 493698
+ 43035 string characters out of 3144386
+ 154749 words of memory out of 3000000
+ 6361 multiletter control sequences out of 15000+200000
  5731 words of font info for 21 fonts, out of 3000000 for 9000
  1025 hyphenation exceptions out of 8191
- 25i,8n,31p,631b,469s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 26i,8n,40p,631b,1203s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C
 :/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on project_report.pdf (17 pages, 276508 bytes).
+Output written on project_report.pdf (17 pages, 274562 bytes).
 PDF statistics:
  103 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
